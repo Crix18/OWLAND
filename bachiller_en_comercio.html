@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Comercio</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("Copia\ de\ no.png");
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
+            align-items: center;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 15px; 
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button onclick="checkAnswer()">Siguiente Pregunta</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "¿Qué es el marketing en el contexto del comercio?",
+        options: [
+            "La gestión eficiente de los recursos financieros.",
+            "La estrategia para promover y vender productos o servicios.",
+            "La técnica para gestionar el inventario de una tienda.",
+            "El proceso de negociación con proveedores."
+        ],
+        correctAnswer: 1 
+    },
+    {
+        question: "¿Qué significa ROI en el ámbito comercial?",
+        options: [
+            "Reembolso de Inversiones y Operaciones.",
+            "Retorno de la Inversión (Return on Investment en inglés).",
+            "Registro de Operaciones Internas.",
+            "Reducción de Oportunidades de Inversión."
+        ],
+        correctAnswer: 1 
+    }
+    ,
+            {
+                question: "¿Cuál de los siguientes es un factor externo que afecta el entorno comercial de una empresa? ",
+                options: ["Política gubernamental", "Cultura organizacional", "Estructura organizativa", "Políticas de recursos humanos"],
+                correctAnswer: 0
+            },
+            {
+                question: "¿Cuál es la función principal del marketing dentro de una empresa? ",
+                options: ["Producción de bienes y servicios", "Venta de bienes y servicios", "Investigación y desarrollo", "Satisfacer las necesidades del cliente y generar ventas"],
+                correctAnswer: 3
+            },
+            {
+                question: "¿Qué término se refiere a la diferencia entre los ingresos totales y los costos totales de una empresa? ",
+                options: ["Ganancia", "Inversión", "Margen de beneficio", "Rentabilidad"],
+                correctAnswer: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let canProceed = true; // Variable para controlar si puede pasar a la siguiente pregunta
+
+function loadQuestion() {
+    const questionElement = document.getElementById("question");
+    const optionsElement = document.getElementById("options");
+    const currentQuizQuestion = questions[currentQuestion];
+
+    questionElement.textContent = currentQuizQuestion.question;
+    optionsElement.innerHTML = "";
+
+    currentQuizQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.onclick = () => selectAnswer(index);
+        optionsElement.appendChild(button);
+    });
+}
+
+function selectAnswer(index) {
+    const currentQuizQuestion = questions[currentQuestion];
+    if (index === currentQuizQuestion.correctAnswer) {
+        alert("¡Correcto!");
+        canProceed = true; // Permite avanzar a la siguiente pregunta
+    } else {
+        alert("Incorrecto. Inténtalo de nuevo.");
+        canProceed = false; // No permite avanzar a la siguiente pregunta
+    }
+}
+
+function checkAnswer() {
+    if (canProceed) {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            alert("¡Has completado el quiz!");
+            currentQuestion = 0;
+            window.location.href = "prvowland.html";
+        }
+    } else {
+        alert("Por favor, responde correctamente antes de pasar a la siguiente pregunta.");
+    }
+}
+
+loadQuestion();
+</script>
+</body>
+
+</html>
